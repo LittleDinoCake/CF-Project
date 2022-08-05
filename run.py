@@ -23,6 +23,7 @@ def storeFiles(files, temp_dir):
         # Copies files from temp to permanent
         shutil.copy(temp_dir + "/" + file, "./" + dir + "/" + file)
 
+    # Deletes the temporary directory to cleanp
     shutil.rmtree(temp_dir)
 
     print(f"\n\n{len(files)} files have been saved into 'medical_data'!\nGoodbye!")
@@ -33,6 +34,7 @@ def storeFiles(files, temp_dir):
 
 def main(args):
 
+    # Download files
     ftpm.downloadFiles(ftpm.getFTPConnetion(args.target), 
                        ".temp", "/", args.date)
 
