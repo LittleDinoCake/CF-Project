@@ -47,8 +47,8 @@ def checkUniqueBatch(filename):
     batchList.sort()
     uniqueBatchList = list(set(batchList))
     uniqueBatchList.sort()
-    print(batchList)
-    print(uniqueBatchList)
+    #print(batchList)
+    #print(uniqueBatchList)
     if (batchList == uniqueBatchList):
         return True
     else:
@@ -95,7 +95,8 @@ def checkFile(file):
         result = check(file)
         if not result == True:
             addLog(result)
-            print(result)
+            print(f"{file.split('/')[-1]} was invalid: {result[2]}. This has been logged!")
+
             return False
 
     return True

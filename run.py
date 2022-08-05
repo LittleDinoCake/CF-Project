@@ -1,6 +1,31 @@
 import argparse
+from datetime import datetime
 import ftpmodule as ftpm
 import fileValidation as fv
+import os
+import shutil
+
+
+def storeFiles(files, temp_dir):
+    # Grab date from file name and save hierachly
+
+    for file in files:
+        _, date = ftpm.getFileNameDate(file)
+        dirs = datetime.strftime(date, "%Y/%m/%d")
+
+        dir = "medical_data/" + dirs
+
+        # Create the directory tree if it doesn't exist
+        if not os.path.isdir(dir):
+            os.makedirs(dir)
+
+        # Copies files from temp to permanent
+        shutil.copy(temp_dir + "/" + file, "./" + dir + "/" + file)
+
+    shutil.rmtree(temp_dir)
+
+    print(f"\n\n{len(files)} files have been saved into 'medical_data'!\nGoodbye!")
+
 
 
 
@@ -9,9 +34,10 @@ def main(args):
     ftpm.downloadFiles(ftpm.getFTPConnetion(args.target), ".temp", "/", args.date)
 
     # Now check files
-    valid = fv.runChecks("./.temp")
-    print(valid)
+    validFiles = fv.runChecks("./.temp")
+
     # Now store files
+    storeFiles(validFiles, "./.temp")
 
 
 # Used in argparse
