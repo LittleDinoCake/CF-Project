@@ -61,6 +61,12 @@ def checkHeaders(filename):
     if (textList[0] == "\"batch_id\",\"timestamp\",\"reading1\",\"reading2\",\"reading3\",\"reading4\",\"reading5\",\"reading6\",\"reading7\",\"reading8\",\"reading9\",\"reading10\""):
         return True
     else:
+        if replace == True:
+            f = open(filename,'w')
+            lines = f.readlines()
+            lines[0] = "\"batch_id\",\"timestamp\",\"reading1\",\"reading2\",\"reading3\",\"reading4\",\"reading5\",\"reading6\",\"reading7\",\"reading8\",\"reading9\",\"reading10\""
+            f.writelines(lines)
+            f.close()
         return [filename, time.ctime(), "Incorrect Headers"]
 
 def checkColumns(filename):
