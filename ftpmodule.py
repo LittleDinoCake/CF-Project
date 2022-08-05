@@ -75,20 +75,4 @@ def getFTPConnetion(target):
 
     return ftp
 
-def main(args):
 
-    downloadFiles(getFTPConnetion(args.target), ".temp", "/", args.date)
-
-def valid_date(s):
-    try:
-        return datetime.strptime(s, "%Y-%m-%d")
-    except ValueError:
-        msg = "Invalid date: {0!r}".format(s)
-        raise argparse.ArgumentTypeError(msg)
-
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Program Parser")
-    parser.add_argument('target', help="The target FTP server address")
-    parser.add_argument('-d', '--date', type=valid_date, help="Download all med-data for the given date")
-    args = parser.parse_args()
-    main(args)

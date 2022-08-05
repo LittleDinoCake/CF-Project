@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import time
+import os
 
 def validEntries(filename):
     # Ensures no reading is above 9.999
@@ -82,6 +83,44 @@ def addLog(logArray):
     timestamp = logArray[1]
     errorType = logArray[2]
     f = open ("log.txt",'a')
-    f.append(filename,timestamp,errorType)
+    f.write(f"{timestamp},{filename},{errorType}\n")
     f.close()
+
+
+
+def checkFile(file):
+    checksToRun = [emptyFile, checkHeaders, checkUniqueBatch, checkColumns, validEntries]
+
+    for check in checksToRun:
+        result = check(file)
+        if not result == True:
+            addLog(result)
+            print(result)
+            return False
+
+    return True
+
+
+def runChecks(temp_dir):
+
+
+
+    files = [f for f in os.listdir(temp_dir) if os.path.isfile(os.path.join(temp_dir, f))]
+
+
+
+    valid_files = []
+
+    for file in files:
+        path = temp_dir + "/" + file
+        result = checkFile(path)
+
+        if result:
+            valid_files.append(file)
+
+    return valid_files
+
+
+
+
 
