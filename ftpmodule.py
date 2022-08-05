@@ -31,6 +31,10 @@ def downloadFiles(ftp, local_temp_dir, remote_dir, limit_date=None):
 
             formatted_file_name, dt = getFileNameDate(file_name)
 
+            if (dt == False):
+                print(f"Skipping {file_name} as it has an invalid date")
+                continue
+
             # Check file date against provided date if given and skip any that don't match
             if limit_date != None:
                 if dt.date() != limit_date.date():
@@ -57,7 +61,12 @@ def getFileNameDate(file):
     # The first part of split name is MED_DATA_TIMEHERE so if we split again on _ and get the last item we get the tiem string
     datetimeString = split_name[0].split('_')[2]
 
-    dt = datetime.strptime(datetimeString, '%Y%m%d%H%M%S')
+    dt = None
+
+    try:
+        dt = datetime.strptime(datetimeString, '%Y%m%d%H%M%S')
+    except Exception:
+        return (None, False)
 
     return (formatted_file_name, dt)
 
