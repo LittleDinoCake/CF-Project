@@ -3,12 +3,14 @@ import numpy as np
 import time
 
 def validEntries(filename):
+    # Ensures no reading is above 9.999
+    # or below 0
     df = pd.read_csv(filename)
     df = df[["reading1", "reading2", "reading3", "reading4",
              "reading5", "reading6", "reading7", "reading8",
              "reading9","reading10"]]
     
-    invalidEntries = df.iloc[np.where(df>9.999)]
+    invalidEntries = df.iloc[np.where(df>9.999)] + df.iloc[np.where(df<0)]
     
     if (not invalidEntries.empty):
         returnCode = [filename, time.ctime(), "Invalid data entered"]
@@ -17,15 +19,24 @@ def validEntries(filename):
         return True
 
 def emptyFile(filename):
+    with open(filename, "r") as f:
+        content = f.readlines()
+        
+    if(len(content) == 0):
+        # returns empty if absolutely nothing in file
+        returnCode = [filename, time.ctime(), "File is empty"]
+        return returnCode
+    
     df = pd.read_csv(filename)
     if (df.empty):
+        # returns empty if there are file headings, but no data,
         returnCode = [filename, time.ctime(), "File is empty"]
         return returnCode
     else:
         return True
     
-
 def checkUniqueBatch(filename):
+    # Ensure each batch_id in a file is unique
     string = openFile(filename)
     textList = string.split("\n")
     batchList = []
@@ -43,6 +54,7 @@ def checkUniqueBatch(filename):
         return [filename, time.ctime(), "Repeated Batch ID"]
 
 def checkHeaders(filename):
+    # Ensure the file headings follow the standard format
     string = openFile(filename)
     textList = string.split("\n")
     if (textList[0] == "\"batch_id\",\"timestamp\",\"reading1\",\"reading2\",\"reading3\",\"reading4\",\"reading5\",\"reading6\",\"reading7\",\"reading8\",\"reading9\",\"reading10\""):
@@ -51,6 +63,7 @@ def checkHeaders(filename):
         return [filename, time.ctime(), "Incorrect Headers"]
 
 def checkColumns(filename):
+    # Ensures each row has the correct number of columns
     string = openFile(filename)
     textList = string.split("\n")
     for i in range (1,len(textList)-1):
