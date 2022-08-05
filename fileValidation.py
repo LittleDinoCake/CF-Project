@@ -1,15 +1,6 @@
 import pandas as pd
 import numpy as np
 
-'''
-TODO
-- Empty files
-    - Check for value present in row 0 col 0
-- Incorrect filenames
-    - Must be in format MED_DATA_YYYYMMDDHHMMSS.csv
-    - ^ already part of download_ftp?
-'''
-
 def validEntries(filename):
     df = pd.read_csv(filename)
     df = df[["reading1", "reading2", "reading3", "reading4",
