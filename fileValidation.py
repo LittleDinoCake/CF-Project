@@ -23,6 +23,14 @@ def validEntries(filename):
         return returnCode
     else:
         return True
+
+def emptyFile(filename):
+    df = pd.read_csv(filename)
+    if (df.empty):
+        returnCode = [filename, "File is empty"]
+        return returnCode
+    else:
+        return True
     
 
 
