@@ -1,0 +1,3 @@
+Fri Aug  5 14:03:31 2022,./.temp/MED_DATA_20210701153954.csv,Invalid data entered
+Fri Aug  5 14:03:46 2022,./.temp/MED_DATA_20210701153954.csv,Invalid data entered
+Fri Aug  5 14:03:56 2022,./.temp/MED_DATA_20210701153954.csv,Invalid data entered
