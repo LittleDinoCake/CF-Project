@@ -56,7 +56,8 @@ def getFileNameDate(file):
     split_name = file.split(".")
     formatted_file_name = split_name[0].upper() + "." + split_name[1].lower()
 
-    # The first part of split name is MED_DATA_TIMEHERE so if we split again on _ and get the last item we get the tiem string
+    # The first part of split name is MED_DATA_TIMEHERE so if we split again on _
+    # and get the last item we get the time string
     datetimeString = split_name[0].split('_')[2]
 
     dt = None

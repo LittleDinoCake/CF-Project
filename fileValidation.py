@@ -58,13 +58,19 @@ def checkHeaders(filename):
     # Ensure the file headings follow the standard format
     string = openFile(filename)
     textList = string.split("\n")
-    if (textList[0] == "\"batch_id\",\"timestamp\",\"reading1\",\"reading2\",\"reading3\",\"reading4\",\"reading5\",\"reading6\",\"reading7\",\"reading8\",\"reading9\",\"reading10\""):
+    if (textList[0] == "\"batch_id\",\"timestamp\",\
+        \"reading1\",\"reading2\",\"reading3\",\
+            \"reading4\",\"reading5\",\"reading6\",\
+                \"reading7\",\"reading8\",\"reading9\",\"reading10\""):
         return True
     else:
-        if replace == True:
+        if True:
             f = open(filename,'w')
             lines = f.readlines()
-            lines[0] = "\"batch_id\",\"timestamp\",\"reading1\",\"reading2\",\"reading3\",\"reading4\",\"reading5\",\"reading6\",\"reading7\",\"reading8\",\"reading9\",\"reading10\""
+            lines[0] = "\"batch_id\",\"timestamp\",\
+                \"reading1\",\"reading2\",\"reading3\",\
+                    \"reading4\",\"reading5\",\"reading6\",\
+                        \"reading7\",\"reading8\",\"reading9\",\"reading10\""
             f.writelines(lines)
             f.close()
         return [filename, time.ctime(), "Incorrect Headers"]
@@ -110,11 +116,7 @@ def checkFile(file):
 
 def runChecks(temp_dir):
 
-
-
     files = [f for f in os.listdir(temp_dir) if os.path.isfile(os.path.join(temp_dir, f))]
-
-
 
     valid_files = []
 
